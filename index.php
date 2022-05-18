@@ -1,6 +1,7 @@
 <?php
     session_start();
     $auth = $_SESSION['auth'] ?? null;
+    include('functions.php');
  ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -26,8 +27,11 @@
 </header>
     <div class="personalInfo">
     <?php        
+                $secsTillBirthDay = $_SESSION['dob'] - time();   
 
-            if($auth && date("md", time()) === date("md", $_SESSION['dob']) ){
+            if($auth && $secsTillBirthDay > 0 && $secsTillBirthDay < 2*24*60*60){
+                echo '</br>До вашего дня рождения <strong>['.date("d.m.Y", $_SESSION['dob']).']</strong>: '.seconds2human($secsTillBirthDay, 1);
+            }elseif($auth && date("md", time()) === date("md", $_SESSION['dob']) ){
                 $deadline = $_SESSION['firstTime']+3600*24;
             
                 $secs = $deadline - time();

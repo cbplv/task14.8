@@ -50,4 +50,19 @@
     function getCurrentUser(){
         return $_SESSION['currentUser'];
     };    
+
+    function seconds2human($ss, $opt = 0) {
+        $s = $ss%60;
+        $m = floor(($ss%3600)/60);
+        $h = floor(($ss%86400)/3600);
+        $d = floor(($ss%2592000)/86400);
+        $M = floor($ss/2592000);
+
+        if($opt === 0){
+            return "$M месяцев $d дней $h часов $m минут $s секунд";
+        }else{
+            return "$d дней $h часов $m минут";
+        }
+
+    };
 ?>
